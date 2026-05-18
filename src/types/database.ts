@@ -4,14 +4,12 @@ export type Shirt = {
   competition: string | null;
   shirt_type: string;
   brand: string | null;
-  sponsor: string | null;
   player_name: string | null;
   number: number | null;
   size: string | null;
   condition: string | null;
   authenticity: string | null;
   purchase_price: number | null;
-  estimated_value: number | null;
   purchase_date: string | null;
   purchase_place: string | null;
   notes: string | null;

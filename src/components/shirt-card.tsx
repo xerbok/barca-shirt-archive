@@ -4,18 +4,7 @@ type ShirtCardProps = {
   shirt: Shirt;
 };
 
-const currencyFormatter = new Intl.NumberFormat("ca-ES", {
-  currency: "EUR",
-  maximumFractionDigits: 0,
-  style: "currency",
-});
-
 export function ShirtCard({ shirt }: ShirtCardProps) {
-  const estimatedValue =
-    shirt.estimated_value === null
-      ? "Sense valoració"
-      : currencyFormatter.format(shirt.estimated_value);
-
   return (
     <article className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div
@@ -46,16 +35,12 @@ export function ShirtCard({ shirt }: ShirtCardProps) {
           />
           <InfoItem label="Talla" value={shirt.size ?? "Sense talla"} />
           <InfoItem label="Estat" value={shirt.condition ?? "Sense estat"} />
+          <InfoItem label="Marca" value={shirt.brand ?? "Sense marca"} />
+          <InfoItem
+            label="Autenticitat"
+            value={shirt.authenticity ?? "Sense autenticitat"}
+          />
         </dl>
-
-        <div className="rounded-md bg-slate-50 px-4 py-3">
-          <p className="text-xs font-semibold uppercase text-slate-500">
-            Valor estimat
-          </p>
-          <p className="mt-1 text-lg font-semibold text-slate-950">
-            {estimatedValue}
-          </p>
-        </div>
       </div>
     </article>
   );
