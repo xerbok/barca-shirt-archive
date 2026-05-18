@@ -10,9 +10,26 @@ function requirePublicEnv(value: string | undefined, name: string): string {
   return value;
 }
 
-const supabaseUrl = requirePublicEnv(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  "NEXT_PUBLIC_SUPABASE_URL",
+function normalizeSupabaseUrl(value: string): string {
+  try {
+    const url = new URL(value);
+    url.pathname = url.pathname.replace(/\/rest\/v1\/?$/, "");
+    url.search = "";
+    url.hash = "";
+
+    return url.toString().replace(/\/$/, "");
+  } catch {
+    throw new Error(
+      "La variable d'entorn NEXT_PUBLIC_SUPABASE_URL no és una URL vàlida.",
+    );
+  }
+}
+
+const supabaseUrl = normalizeSupabaseUrl(
+  requirePublicEnv(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    "NEXT_PUBLIC_SUPABASE_URL",
+  ),
 );
 
 const supabaseAnonKey = requirePublicEnv(
