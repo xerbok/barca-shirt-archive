@@ -3,6 +3,7 @@ export type Shirt = {
   season: string;
   competition: string | null;
   shirt_type: string;
+  fabric_type: string | null;
   brand: string | null;
   player_name: string | null;
   number: number | null;

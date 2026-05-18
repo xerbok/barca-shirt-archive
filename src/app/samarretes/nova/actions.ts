@@ -30,10 +30,8 @@ export async function createShirtAction(
     brand: getOptionalText(formData, "brand"),
     competition: getOptionalText(formData, "competition"),
     condition: getOptionalText(formData, "condition"),
-    notes: buildNotesWithShirtFit(
-      getOptionalText(formData, "notes"),
-      getOptionalText(formData, "shirt_fit"),
-    ),
+    fabric_type: getOptionalText(formData, "fabric_type"),
+    notes: getOptionalText(formData, "notes"),
     number: getOptionalInteger(formData, "number"),
     player_name: getOptionalText(formData, "player_name"),
     purchase_date: getOptionalText(formData, "purchase_date"),
@@ -65,19 +63,6 @@ function getOptionalText(formData: FormData, name: string): string | null {
   const value = getRequiredText(formData, name);
 
   return value.length > 0 ? value : null;
-}
-
-function buildNotesWithShirtFit(
-  notes: string | null,
-  shirtFit: string | null,
-): string | null {
-  if (!shirtFit) {
-    return notes;
-  }
-
-  const shirtFitNote = `Tipus de confecció: ${shirtFit}`;
-
-  return notes ? `${shirtFitNote}\n\n${notes}` : shirtFitNote;
 }
 
 function getOptionalInteger(formData: FormData, name: string): number | null {

@@ -81,8 +81,8 @@ export function NewShirtForm() {
           required
         />
         <SelectField
-          label="Tipus de confecció"
-          name="shirt_fit"
+          label="Tipus de teixit"
+          name="fabric_type"
           options={["Rèplica", "Jugador"]}
           placeholder="Selecciona rèplica o jugador"
         />

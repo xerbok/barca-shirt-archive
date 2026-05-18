@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Shirt } from "@/types/database";
 
 type ShirtCardProps = {
@@ -6,7 +7,11 @@ type ShirtCardProps = {
 
 export function ShirtCard({ shirt }: ShirtCardProps) {
   return (
-    <article className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+    <Link
+      className="block overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100"
+      href={`/samarretes/${shirt.id}`}
+    >
+      <article>
       <div
         aria-label="Imatge placeholder de la samarreta"
         className="relative aspect-[4/3] overflow-hidden bg-slate-900"
@@ -35,14 +40,15 @@ export function ShirtCard({ shirt }: ShirtCardProps) {
           />
           <InfoItem label="Talla" value={shirt.size ?? "Sense talla"} />
           <InfoItem label="Estat" value={shirt.condition ?? "Sense estat"} />
-          <InfoItem label="Marca" value={shirt.brand ?? "Sense marca"} />
           <InfoItem
-            label="Autenticitat"
-            value={shirt.authenticity ?? "Sense autenticitat"}
+            label="Tipus de teixit"
+            value={shirt.fabric_type ?? "Sense tipus"}
           />
+          <InfoItem label="Marca" value={shirt.brand ?? "Sense marca"} />
         </dl>
       </div>
-    </article>
+      </article>
+    </Link>
   );
 }
 
