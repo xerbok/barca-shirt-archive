@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
-import type { CreateShirtInput, Shirt } from "@/types/database";
+import type { CreateShirtInput, Shirt, UpdateShirtInput } from "@/types/database";
 
 export async function getShirts(): Promise<Shirt[]> {
   const { data, error } = await supabase
@@ -43,5 +43,31 @@ export async function createShirt(input: CreateShirtInput): Promise<void> {
 
   if (error) {
     throw new Error("No s'ha pogut crear la samarreta a Supabase.");
+  }
+}
+
+export async function updateShirt(
+  id: string,
+  input: UpdateShirtInput,
+): Promise<void> {
+  const { fabric_type: fabricType, ...shirtInput } = input;
+  const { error } = await supabase
+    .from("shirts")
+    .update({
+      ...shirtInput,
+      shirt_fit: fabricType,
+    })
+    .eq("id", id);
+
+  if (error) {
+    throw new Error("No s'ha pogut actualitzar la samarreta a Supabase.");
+  }
+}
+
+export async function deleteShirt(id: string): Promise<void> {
+  const { error } = await supabase.from("shirts").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("No s'ha pogut eliminar la samarreta a Supabase.");
   }
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DeleteShirtButton } from "@/components/delete-shirt-button";
 import type { Shirt } from "@/types/database";
 
 type ShirtDetailProps = {
@@ -36,18 +37,13 @@ export function ShirtDetail({ shirt }: ShirtDetailProps) {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <button
+              <Link
                 className="inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm"
-                type="button"
+                href={`/samarretes/${shirt.id}/editar`}
               >
                 Editar
-              </button>
-              <button
-                className="inline-flex h-11 items-center justify-center rounded-md border border-red-200 bg-red-50 px-4 text-sm font-semibold text-red-700 shadow-sm"
-                type="button"
-              >
-                Eliminar
-              </button>
+              </Link>
+              <DeleteShirtButton shirtId={shirt.id} />
             </div>
           </div>
         </header>
