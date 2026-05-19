@@ -10,10 +10,11 @@ export function ShirtCard({ shirt }: ShirtCardProps) {
 
   return (
     <Link
-      className="block overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100"
+      className="block overflow-hidden rounded-lg border border-[#01176a]/15 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-[#c30044]/35 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-[#01176a]/15"
       href={`/samarretes/${shirt.id}`}
     >
       <article>
+        <div className="h-1 bg-[linear-gradient(90deg,#01176a_0_50%,#c30044_50%_100%)]" />
         {shirt.main_image ? (
           <div
             aria-label={imageLabel}
@@ -23,7 +24,7 @@ export function ShirtCard({ shirt }: ShirtCardProps) {
               backgroundImage: `url(${JSON.stringify(shirt.main_image.image_url)})`,
             }}
           >
-            <div className="absolute bottom-4 left-4 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold text-slate-950">
+            <div className="absolute bottom-4 left-4 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold text-[#01176a]">
               Imatge principal
             </div>
           </div>
@@ -33,10 +34,10 @@ export function ShirtCard({ shirt }: ShirtCardProps) {
 
         <div className="space-y-5 p-5">
           <div>
-            <p className="text-sm font-semibold text-blue-700">
+            <p className="text-sm font-semibold text-[#c30044]">
               {shirt.season}
             </p>
-            <h2 className="mt-1 text-xl font-semibold text-slate-950">
+            <h2 className="mt-1 text-xl font-semibold text-[#01176a]">
               {shirt.shirt_type}
             </h2>
           </div>
@@ -73,9 +74,9 @@ function ShirtImagePlaceholder() {
       className="relative aspect-[4/3] overflow-hidden bg-slate-900"
       role="img"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,#0b3b82_0_34%,#991b1b_34%_66%,#0b3b82_66%_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,#01176a_0_34%,#c30044_34%_66%,#01176a_66%_100%)]" />
       <div className="absolute inset-x-8 top-8 h-24 rounded-b-full border-x-8 border-b-8 border-white/25" />
-      <div className="absolute bottom-4 left-4 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold text-slate-950">
+      <div className="absolute bottom-4 left-4 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold text-[#01176a]">
         Imatge pendent
       </div>
     </div>
@@ -85,7 +86,7 @@ function ShirtImagePlaceholder() {
 function InfoItem({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-xs font-semibold uppercase text-slate-500">{label}</dt>
+      <dt className="text-xs font-semibold uppercase text-[#01176a]/60">{label}</dt>
       <dd className="mt-1 font-medium text-slate-900">{value}</dd>
     </div>
   );

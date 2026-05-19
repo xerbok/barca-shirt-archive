@@ -19,10 +19,10 @@ export function ShirtsGrid({
   return (
     <section>
       <div className="mb-4 flex items-center justify-between gap-4">
-        <h2 className="text-xl font-semibold text-slate-950">
+        <h2 className="text-xl font-semibold text-[#01176a]">
           Samarretes registrades
         </h2>
-        <p className="text-sm font-medium text-slate-600">
+        <p className="text-sm font-medium text-[#c30044]">
           {displayedResultCount}{" "}
           {displayedResultCount === 1 ? "peça" : "peces"}
         </p>

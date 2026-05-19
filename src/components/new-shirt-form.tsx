@@ -83,7 +83,7 @@ export function NewShirtForm() {
   return (
     <form
       action={formAction}
-      className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+      className="rounded-lg border border-[#01176a]/15 bg-white p-5 shadow-sm sm:p-6"
       onSubmit={handleSubmit}
     >
       <div className="grid gap-5 md:grid-cols-2">
@@ -163,7 +163,7 @@ export function NewShirtForm() {
         Imatges de la samarreta
         <input
           accept="image/png,image/jpeg,image/webp"
-          className="rounded-md border border-dashed border-slate-300 bg-slate-50 px-3 py-3 text-sm text-slate-700 outline-none transition file:mr-4 file:rounded-md file:border-0 file:bg-blue-800 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white hover:border-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-slate-100"
+          className="rounded-md border border-dashed border-[#01176a]/25 bg-slate-50 px-3 py-3 text-sm text-slate-700 outline-none transition file:mr-4 file:rounded-md file:border-0 file:bg-[#01176a] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white hover:border-[#c30044]/40 focus:border-[#01176a] focus:bg-white focus:ring-4 focus:ring-[#01176a]/15 disabled:cursor-not-allowed disabled:bg-slate-100"
           disabled={pending}
           multiple
           name="images"
@@ -178,7 +178,7 @@ export function NewShirtForm() {
       <label className="mt-5 flex flex-col gap-2 text-sm font-medium text-slate-700">
         Notes
         <textarea
-          className="min-h-32 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-base text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+          className="min-h-32 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-base text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#01176a] focus:bg-white focus:ring-4 focus:ring-[#01176a]/15"
           name="notes"
           placeholder="Detalls de conservació, compra o història de la peça"
         />
@@ -195,13 +195,13 @@ export function NewShirtForm() {
 
       <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <Link
-          className="inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+          className="inline-flex h-11 items-center justify-center rounded-md border border-[#01176a]/20 bg-white px-4 text-sm font-semibold text-[#01176a] shadow-sm transition hover:border-[#c30044]/30 hover:bg-[#c30044]/5"
           href="/"
         >
           Cancel·lar
         </Link>
         <button
-          className="inline-flex h-11 items-center justify-center rounded-md bg-blue-800 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-900 disabled:cursor-not-allowed disabled:bg-blue-300"
+          className="inline-flex h-11 items-center justify-center rounded-md bg-[#01176a] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#c30044] focus:outline-none focus:ring-4 focus:ring-[#c30044]/20 disabled:cursor-not-allowed disabled:bg-[#01176a]/35"
           disabled={pending}
           type="submit"
         >
@@ -229,7 +229,7 @@ function SelectField({
     <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
       {label}
       <select
-        className="h-11 rounded-md border border-slate-200 bg-slate-50 px-3 text-base text-slate-950 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+        className="h-11 rounded-md border border-slate-200 bg-slate-50 px-3 text-base text-slate-950 outline-none transition focus:border-[#01176a] focus:bg-white focus:ring-4 focus:ring-[#01176a]/15"
         name={name}
         required={required}
       >
@@ -263,7 +263,7 @@ function FormField({
     <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
       {label}
       <input
-        className="h-11 rounded-md border border-slate-200 bg-slate-50 px-3 text-base text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+        className="h-11 rounded-md border border-slate-200 bg-slate-50 px-3 text-base text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#01176a] focus:bg-white focus:ring-4 focus:ring-[#01176a]/15"
         name={name}
         placeholder={placeholder}
         required={required}

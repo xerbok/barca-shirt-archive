@@ -43,7 +43,7 @@ function DetailMessage({ message }: { message: string }) {
           </h1>
           <p className="mt-3 text-sm leading-6 text-slate-600">{message}</p>
           <Link
-            className="mt-6 inline-flex h-11 items-center justify-center rounded-md bg-blue-800 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-900"
+            className="mt-6 inline-flex h-11 items-center justify-center rounded-md bg-[#01176a] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#c30044] focus:outline-none focus:ring-4 focus:ring-[#c30044]/20"
             href="/"
           >
             Tornar a l&apos;arxiu

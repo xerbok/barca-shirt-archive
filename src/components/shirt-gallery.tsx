@@ -14,15 +14,15 @@ export function ShirtGallery({ images, title }: ShirtGalleryProps) {
 
   if (images.length === 0) {
     return (
-      <section className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+      <section className="overflow-hidden rounded-lg border border-[#01176a]/15 bg-white shadow-sm">
         <div
           aria-label="Imatge placeholder de la samarreta"
           className="relative aspect-[4/3] overflow-hidden bg-slate-900"
           role="img"
         >
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#0b3b82_0_34%,#991b1b_34%_66%,#0b3b82_66%_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#01176a_0_34%,#c30044_34%_66%,#01176a_66%_100%)]" />
           <div className="absolute inset-x-10 top-10 h-32 rounded-b-full border-x-8 border-b-8 border-white/25" />
-          <div className="absolute bottom-5 left-5 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold text-slate-950">
+          <div className="absolute bottom-5 left-5 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold text-[#01176a]">
             Imatge pendent
           </div>
         </div>
@@ -65,13 +65,13 @@ export function ShirtGallery({ images, title }: ShirtGalleryProps) {
   }
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+    <section className="rounded-lg border border-[#01176a]/15 bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between gap-4">
-        <h2 className="text-lg font-semibold text-slate-950">
+        <h2 className="text-lg font-semibold text-[#01176a]">
           Galeria d&apos;imatges
         </h2>
         {hasMultipleImages ? (
-          <p className="text-sm font-medium text-slate-500">
+          <p className="text-sm font-medium text-[#c30044]">
             {activeIndex + 1} de {images.length}
           </p>
         ) : null}
@@ -112,7 +112,7 @@ export function ShirtGallery({ images, title }: ShirtGalleryProps) {
 
           <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
             {activeImage.is_main ? (
-              <figcaption className="rounded-md bg-white/90 px-3 py-1 text-xs font-semibold uppercase text-blue-800">
+              <figcaption className="rounded-md bg-white/90 px-3 py-1 text-xs font-semibold uppercase text-[#01176a]">
                 Imatge principal
               </figcaption>
             ) : null}
@@ -131,7 +131,7 @@ export function ShirtGallery({ images, title }: ShirtGalleryProps) {
             <button
               aria-label={`Veure la imatge ${index + 1}`}
               aria-pressed={index === activeIndex}
-              className="h-2.5 w-2.5 rounded-full bg-slate-300 transition hover:bg-slate-500 aria-pressed:bg-blue-800"
+              className="h-2.5 w-2.5 rounded-full bg-slate-300 transition hover:bg-[#c30044] aria-pressed:bg-[#01176a]"
               key={image.id}
               onClick={() => setActiveIndex(index)}
               type="button"
@@ -160,7 +160,7 @@ function CarouselButton({
   return (
     <button
       aria-label={label}
-      className={`absolute top-1/2 ${positionClass} flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-3xl font-semibold leading-none text-slate-950 shadow-sm transition hover:bg-white focus:opacity-100 focus:outline-none focus:ring-4 focus:ring-blue-100`}
+      className={`absolute top-1/2 ${positionClass} flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-3xl font-semibold leading-none text-[#01176a] shadow-sm transition hover:bg-white hover:text-[#c30044] focus:opacity-100 focus:outline-none focus:ring-4 focus:ring-[#01176a]/15`}
       onClick={onClick}
       style={{ opacity: controlsVisible ? 1 : 0 }}
       type="button"

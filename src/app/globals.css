@@ -3,6 +3,8 @@
 :root {
   --background: #f6f7f9;
   --foreground: #15161a;
+  --barca-red: #c30044;
+  --barca-blue: #01176a;
 }
 
 @theme inline {
@@ -27,7 +29,35 @@ body {
   min-height: 100vh;
 }
 
+body::before,
+body::after {
+  bottom: 0;
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 28px;
+  z-index: 50;
+}
+
+body::before {
+  background: var(--barca-blue);
+  left: 0;
+}
+
+body::after {
+  background: var(--barca-red);
+  right: 0;
+}
+
 button,
 a {
   font: inherit;
+}
+
+@media (min-width: 768px) {
+  body::before,
+  body::after {
+    width: 64px;
+  }
 }

@@ -111,15 +111,16 @@ export function ShirtFilters({
   sortOption,
 }: ShirtFiltersProps) {
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+    <section className="relative overflow-hidden rounded-lg border border-[#01176a]/15 bg-white p-4 pt-5 shadow-sm sm:p-5 sm:pt-6">
+      <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#01176a_0_50%,#c30044_50%_100%)]" />
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-slate-950">Filtres</h2>
+          <h2 className="text-lg font-semibold text-[#01176a]">Filtres</h2>
           <p className="mt-0.5 text-xs text-slate-600">
             Cerca, filtra i ordena les samarretes de la col·lecció.
           </p>
         </div>
-        <p className="text-sm font-semibold text-blue-800">
+        <p className="text-sm font-semibold text-[#c30044]">
           {resultCount} {resultCount === 1 ? "resultat" : "resultats"}
         </p>
       </div>
@@ -128,7 +129,7 @@ export function ShirtFilters({
         <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
           Cerca
           <input
-            className="h-10 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            className="h-10 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-[#01176a] focus:bg-white focus:ring-4 focus:ring-[#01176a]/15"
             onChange={(event) => onQueryChange(event.target.value)}
             placeholder="Temporada, jugador, dorsal, marca..."
             type="search"
@@ -139,7 +140,7 @@ export function ShirtFilters({
         <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
           Ordenació
           <select
-            className="h-10 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-950 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            className="h-10 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-950 outline-none transition focus:border-[#01176a] focus:bg-white focus:ring-4 focus:ring-[#01176a]/15"
             onChange={(event) =>
               onSortChange(event.target.value as ShirtSortOption)
             }
@@ -169,7 +170,7 @@ export function ShirtFilters({
 
       <div className="mt-4 flex justify-end">
         <button
-          className="inline-flex h-9 items-center justify-center rounded-md border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex h-9 items-center justify-center rounded-md border border-[#01176a]/20 bg-white px-3 text-sm font-semibold text-[#01176a] shadow-sm transition hover:border-[#c30044]/30 hover:bg-[#c30044]/5 disabled:cursor-not-allowed disabled:opacity-60"
           disabled={!hasActiveFilters && sortOption === "created_at_desc"}
           onClick={onClearFilters}
           type="button"
@@ -198,7 +199,7 @@ function SelectFilter({
     <label className="flex flex-col gap-1.5 text-xs font-medium text-slate-700">
       {label}
       <select
-        className="h-9 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-950 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+        className="h-9 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-950 outline-none transition focus:border-[#01176a] focus:bg-white focus:ring-4 focus:ring-[#01176a]/15"
         onChange={(event) => onChange(event.target.value)}
         value={value}
       >

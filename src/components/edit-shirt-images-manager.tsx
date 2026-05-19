@@ -110,13 +110,13 @@ export function EditShirtImagesManager({
   }
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+    <section className="rounded-lg border border-[#01176a]/15 bg-white p-5 shadow-sm sm:p-6">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase text-red-700">
+          <p className="text-sm font-semibold uppercase text-[#c30044]">
             Imatges
           </p>
-          <h2 className="mt-1 text-2xl font-semibold text-slate-950">
+          <h2 className="mt-1 text-2xl font-semibold text-[#01176a]">
             Gestionar imatges
           </h2>
         </div>
@@ -130,7 +130,7 @@ export function EditShirtImagesManager({
           Afegir imatges
           <input
             accept="image/png,image/jpeg,image/webp"
-            className="rounded-md border border-dashed border-slate-300 bg-slate-50 px-3 py-3 text-sm text-slate-700 outline-none transition file:mr-4 file:rounded-md file:border-0 file:bg-blue-800 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white hover:border-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-slate-100"
+            className="rounded-md border border-dashed border-[#01176a]/25 bg-slate-50 px-3 py-3 text-sm text-slate-700 outline-none transition file:mr-4 file:rounded-md file:border-0 file:bg-[#01176a] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white hover:border-[#c30044]/40 focus:border-[#01176a] focus:bg-white focus:ring-4 focus:ring-[#01176a]/15 disabled:cursor-not-allowed disabled:bg-slate-100"
             disabled={uploadPending}
             multiple
             name="images"
@@ -143,7 +143,7 @@ export function EditShirtImagesManager({
         </label>
         <div className="mt-4 flex justify-end">
           <button
-            className="inline-flex h-11 items-center justify-center rounded-md bg-blue-800 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-900 disabled:cursor-not-allowed disabled:bg-blue-300"
+            className="inline-flex h-11 items-center justify-center rounded-md bg-[#01176a] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#c30044] focus:outline-none focus:ring-4 focus:ring-[#c30044]/20 disabled:cursor-not-allowed disabled:bg-[#01176a]/35"
             disabled={uploadPending}
             type="submit"
           >
@@ -166,7 +166,7 @@ export function EditShirtImagesManager({
 
             return (
               <article
-                className="overflow-hidden rounded-md border border-slate-200 bg-slate-50"
+                className="overflow-hidden rounded-md border border-[#01176a]/15 bg-slate-50"
                 key={image.id}
               >
                 <div
@@ -178,7 +178,7 @@ export function EditShirtImagesManager({
                   }}
                 >
                   {image.is_main ? (
-                    <span className="absolute left-3 top-3 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold uppercase text-blue-800">
+                    <span className="absolute left-3 top-3 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold uppercase text-[#01176a]">
                       Principal
                     </span>
                   ) : null}
@@ -186,7 +186,7 @@ export function EditShirtImagesManager({
 
                 <div className="flex flex-col gap-2 p-3">
                   <button
-                    className="inline-flex h-12 items-center justify-center rounded-md border border-slate-200 bg-white px-2 text-xs font-semibold leading-tight text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex h-12 items-center justify-center rounded-md border border-[#01176a]/20 bg-white px-2 text-xs font-semibold leading-tight text-[#01176a] shadow-sm transition hover:border-[#c30044]/30 hover:bg-[#c30044]/5 disabled:cursor-not-allowed disabled:opacity-60"
                     disabled={Boolean(image.is_main) || mainPending}
                     onClick={() => handleSetMainImage(image.id)}
                     type="button"

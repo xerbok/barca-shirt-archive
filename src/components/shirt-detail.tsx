@@ -19,9 +19,10 @@ export function ShirtDetail({ shirt }: ShirtDetailProps) {
   return (
     <main className="min-h-screen bg-slate-100">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-6 sm:px-8 lg:py-8">
-        <header className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <header className="relative overflow-hidden rounded-lg border border-[#01176a]/15 bg-white p-5 pt-6 shadow-sm sm:p-6 sm:pt-7">
+          <div className="absolute inset-x-0 top-0 h-1.5 bg-[linear-gradient(90deg,#01176a_0_50%,#c30044_50%_100%)]" />
           <Link
-            className="text-sm font-semibold text-blue-800 transition hover:text-blue-950"
+            className="text-sm font-semibold text-[#01176a] transition hover:text-[#c30044]"
             href="/"
           >
             Tornar a l&apos;arxiu
@@ -29,17 +30,17 @@ export function ShirtDetail({ shirt }: ShirtDetailProps) {
 
           <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase text-red-700">
+              <p className="text-sm font-semibold uppercase text-[#c30044]">
                 Detall de la samarreta
               </p>
-              <h1 className="mt-2 text-3xl font-semibold text-slate-950 sm:text-4xl">
+              <h1 className="mt-2 text-3xl font-semibold text-[#01176a] sm:text-4xl">
                 {title}
               </h1>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
-                className="inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm"
+                className="inline-flex h-11 items-center justify-center rounded-md border border-[#01176a]/20 bg-white px-4 text-sm font-semibold text-[#01176a] shadow-sm transition hover:border-[#c30044]/30 hover:bg-[#c30044]/5"
                 href={`/samarretes/${shirt.id}/editar`}
               >
                 Editar
@@ -52,8 +53,8 @@ export function ShirtDetail({ shirt }: ShirtDetailProps) {
         <section className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
           <ShirtGallery images={shirt.images} title={title} />
 
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-            <h2 className="text-xl font-semibold text-slate-950">
+          <div className="rounded-lg border border-[#01176a]/15 bg-white p-5 shadow-sm sm:p-6">
+            <h2 className="text-xl font-semibold text-[#01176a]">
               Informació de la peça
             </h2>
             <dl className="mt-5 grid gap-4 sm:grid-cols-2">
