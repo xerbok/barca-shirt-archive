@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { type FormEvent, useActionState, useState } from "react";
 import { createShirtAction } from "@/app/samarretes/nova/actions";
 
 const initialCreateShirtFormState = {
   message: "",
 };
+
+const MAX_IMAGE_UPLOAD_BYTES = 45 * 1024 * 1024;
+const MAX_IMAGE_UPLOAD_MB = 45;
 
 const mainTextFields = [
   {
@@ -46,15 +49,42 @@ const detailTextFields = [
 ];
 
 export function NewShirtForm() {
+  const [clientMessage, setClientMessage] = useState("");
   const [state, formAction, pending] = useActionState(
     createShirtAction,
     initialCreateShirtFormState,
   );
+  const errorMessage = clientMessage || state.message;
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const input = event.currentTarget.elements.namedItem("images");
+
+    if (!(input instanceof HTMLInputElement) || !input.files) {
+      setClientMessage("");
+      return;
+    }
+
+    const totalSize = Array.from(input.files).reduce(
+      (size, file) => size + file.size,
+      0,
+    );
+
+    if (totalSize > MAX_IMAGE_UPLOAD_BYTES) {
+      event.preventDefault();
+      setClientMessage(
+        `La selecció d'imatges no pot superar els ${MAX_IMAGE_UPLOAD_MB} MB. Redueix la mida o tria menys imatges.`,
+      );
+      return;
+    }
+
+    setClientMessage("");
+  }
 
   return (
     <form
       action={formAction}
       className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+      onSubmit={handleSubmit}
     >
       <div className="grid gap-5 md:grid-cols-2">
         {mainTextFields.map((field) => (
@@ -141,7 +171,7 @@ export function NewShirtForm() {
         />
         <span className="text-xs font-normal text-slate-500">
           Pots seleccionar més d&apos;una imatge. Formats acceptats: PNG, JPEG o
-          WebP.
+          WebP. Mida màxima total: {MAX_IMAGE_UPLOAD_MB} MB.
         </span>
       </label>
 
@@ -154,12 +184,12 @@ export function NewShirtForm() {
         />
       </label>
 
-      {state.message ? (
+      {errorMessage ? (
         <p
           aria-live="polite"
           className="mt-5 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-800"
         >
-          {state.message}
+          {errorMessage}
         </p>
       ) : null}
 

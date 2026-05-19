@@ -19,8 +19,8 @@ export default function NewShirtPage() {
             Afegir samarreta
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
-            Registra les dades principals de la peça. Les imatges es podran
-            afegir més endavant.
+            Registra les dades principals de la peça i afegeix una o més
+            imatges de la samarreta.
           </p>
         </header>
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DeleteShirtButton } from "@/components/delete-shirt-button";
-import type { ShirtImage, ShirtWithImages } from "@/types/database";
+import { ShirtGallery } from "@/components/shirt-gallery";
+import type { ShirtWithImages } from "@/types/database";
 
 type ShirtDetailProps = {
   shirt: ShirtWithImages;
@@ -98,67 +99,6 @@ export function ShirtDetail({ shirt }: ShirtDetailProps) {
         </section>
       </div>
     </main>
-  );
-}
-
-function ShirtGallery({
-  images,
-  title,
-}: {
-  images: ShirtImage[];
-  title: string;
-}) {
-  if (images.length === 0) {
-    return (
-      <section className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-        <div
-          aria-label="Imatge placeholder de la samarreta"
-          className="relative aspect-[4/3] overflow-hidden bg-slate-900"
-          role="img"
-        >
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#0b3b82_0_34%,#991b1b_34%_66%,#0b3b82_66%_100%)]" />
-          <div className="absolute inset-x-10 top-10 h-32 rounded-b-full border-x-8 border-b-8 border-white/25" />
-          <div className="absolute bottom-5 left-5 rounded-md bg-white/90 px-3 py-1 text-xs font-semibold text-slate-950">
-            Imatge pendent
-          </div>
-        </div>
-        <p className="px-5 py-4 text-sm font-medium text-slate-600">
-          Aquesta samarreta encara no té imatges.
-        </p>
-      </section>
-    );
-  }
-
-  return (
-    <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-      <h2 className="text-lg font-semibold text-slate-950">
-        Galeria d&apos;imatges
-      </h2>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-        {images.map((image, index) => (
-          <figure
-            className={
-              index === 0 ? "sm:col-span-2 lg:col-span-1 xl:col-span-2" : ""
-            }
-            key={image.id}
-          >
-            <div
-              aria-label={`${title}, imatge ${index + 1}`}
-              className="aspect-[4/3] overflow-hidden rounded-md bg-slate-100 bg-cover bg-center"
-              role="img"
-              style={{
-                backgroundImage: `url(${JSON.stringify(image.image_url)})`,
-              }}
-            />
-            {image.is_main ? (
-              <figcaption className="mt-2 text-xs font-semibold uppercase text-blue-800">
-                Imatge principal
-              </figcaption>
-            ) : null}
-          </figure>
-        ))}
-      </div>
-    </section>
   );
 }
 
