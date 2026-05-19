@@ -1,9 +1,9 @@
 import { ShirtCard } from "@/components/shirt-card";
-import type { Shirt } from "@/types/database";
+import type { ShirtWithMainImage } from "@/types/database";
 
 type ShirtsGridProps = {
   errorMessage?: string | null;
-  shirts: Shirt[];
+  shirts: ShirtWithMainImage[];
 };
 
 export function ShirtsGrid({ errorMessage, shirts }: ShirtsGridProps) {

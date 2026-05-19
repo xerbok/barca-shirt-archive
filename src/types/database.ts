@@ -42,6 +42,10 @@ export type ShirtWithImages = Shirt & {
   images: ShirtImage[];
 };
 
+export type ShirtWithMainImage = Shirt & {
+  main_image: ShirtImage | null;
+};
+
 export type CreateShirtInput = Pick<Shirt, "season" | "shirt_type"> &
   Partial<
     Omit<Shirt, "id" | "season" | "shirt_type" | "created_at" | "updated_at">

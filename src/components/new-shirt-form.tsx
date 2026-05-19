@@ -130,6 +130,22 @@ export function NewShirtForm() {
       </div>
 
       <label className="mt-5 flex flex-col gap-2 text-sm font-medium text-slate-700">
+        Imatges de la samarreta
+        <input
+          accept="image/png,image/jpeg,image/webp"
+          className="rounded-md border border-dashed border-slate-300 bg-slate-50 px-3 py-3 text-sm text-slate-700 outline-none transition file:mr-4 file:rounded-md file:border-0 file:bg-blue-800 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white hover:border-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-slate-100"
+          disabled={pending}
+          multiple
+          name="images"
+          type="file"
+        />
+        <span className="text-xs font-normal text-slate-500">
+          Pots seleccionar més d&apos;una imatge. Formats acceptats: PNG, JPEG o
+          WebP.
+        </span>
+      </label>
+
+      <label className="mt-5 flex flex-col gap-2 text-sm font-medium text-slate-700">
         Notes
         <textarea
           className="min-h-32 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-base text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
@@ -159,7 +175,7 @@ export function NewShirtForm() {
           disabled={pending}
           type="submit"
         >
-          {pending ? "Desant..." : "Desar samarreta"}
+          {pending ? "Creant i pujant imatges..." : "Desar samarreta"}
         </button>
       </div>
     </form>

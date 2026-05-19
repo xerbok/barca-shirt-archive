@@ -3,12 +3,12 @@ import { AppHeader } from "@/components/app-header";
 import { ShirtFilters } from "@/components/shirt-filters";
 import { ShirtsGrid } from "@/components/shirts-grid";
 import { getShirts } from "@/lib/shirts";
-import type { Shirt } from "@/types/database";
+import type { ShirtWithMainImage } from "@/types/database";
 
 export default async function Home() {
   await connection();
 
-  let shirts: Shirt[] = [];
+  let shirts: ShirtWithMainImage[] = [];
   let errorMessage: string | null = null;
 
   try {

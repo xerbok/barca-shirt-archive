@@ -2,8 +2,13 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createShirt } from "@/lib/shirts";
-import type { CreateShirtInput } from "@/types/database";
+import {
+  createShirt,
+  deleteShirt,
+  isAllowedShirtImageType,
+  uploadShirtImages,
+} from "@/lib/shirts";
+import type { CreateShirtInput, Shirt } from "@/types/database";
 
 type CreateShirtFormState = {
   message: string;
@@ -15,11 +20,18 @@ export async function createShirtAction(
 ): Promise<CreateShirtFormState> {
   const season = getRequiredText(formData, "season");
   const shirtType = getRequiredText(formData, "shirt_type");
+  const imageFiles = getImageFiles(formData, "images");
 
   if (!season || !shirtType) {
     return {
       message:
         "La temporada i el tipus de samarreta són obligatoris per crear la fitxa.",
+    };
+  }
+
+  if (imageFiles.some((file) => !isAllowedShirtImageType(file.type))) {
+    return {
+      message: "Només pots pujar imatges PNG, JPEG o WebP.",
     };
   }
 
@@ -40,12 +52,24 @@ export async function createShirtAction(
     size: getOptionalText(formData, "size"),
   };
 
+  let createdShirt: Shirt;
+
   try {
-    await createShirt(input);
+    createdShirt = await createShirt(input);
   } catch {
     return {
       message:
         "No s'ha pogut afegir la samarreta. Revisa les dades i torna-ho a provar.",
+    };
+  }
+
+  try {
+    await uploadShirtImages(createdShirt.id, imageFiles);
+  } catch (error) {
+    await deleteShirt(createdShirt.id).catch(() => undefined);
+
+    return {
+      message: getCreateShirtImagesErrorMessage(error),
     };
   }
 
@@ -87,4 +111,19 @@ function getOptionalNumber(formData: FormData, name: string): number | null {
   const parsedValue = Number.parseFloat(value);
 
   return Number.isNaN(parsedValue) ? null : parsedValue;
+}
+
+function getImageFiles(formData: FormData, name: string): File[] {
+  return formData
+    .getAll(name)
+    .filter((value): value is File => value instanceof File && value.size > 0);
+}
+
+function getCreateShirtImagesErrorMessage(error: unknown): string {
+  const message =
+    error instanceof Error
+      ? error.message
+      : "No s'han pogut pujar les imatges.";
+
+  return `${message} No s'ha creat la samarreta.`;
 }
