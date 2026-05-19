@@ -2,11 +2,20 @@ import { ShirtCard } from "@/components/shirt-card";
 import type { ShirtWithMainImage } from "@/types/database";
 
 type ShirtsGridProps = {
+  emptyMessage?: string;
   errorMessage?: string | null;
+  resultCount?: number;
   shirts: ShirtWithMainImage[];
 };
 
-export function ShirtsGrid({ errorMessage, shirts }: ShirtsGridProps) {
+export function ShirtsGrid({
+  emptyMessage = "Encara no has afegit cap samarreta.",
+  errorMessage,
+  resultCount,
+  shirts,
+}: ShirtsGridProps) {
+  const displayedResultCount = resultCount ?? shirts.length;
+
   return (
     <section>
       <div className="mb-4 flex items-center justify-between gap-4">
@@ -14,14 +23,15 @@ export function ShirtsGrid({ errorMessage, shirts }: ShirtsGridProps) {
           Samarretes registrades
         </h2>
         <p className="text-sm font-medium text-slate-600">
-          {shirts.length} peces
+          {displayedResultCount}{" "}
+          {displayedResultCount === 1 ? "peça" : "peces"}
         </p>
       </div>
 
       {errorMessage ? (
         <StatusPanel message={errorMessage} tone="error" />
       ) : shirts.length === 0 ? (
-        <StatusPanel message="Encara no has afegit cap samarreta." />
+        <StatusPanel message={emptyMessage} />
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {shirts.map((shirt) => (
