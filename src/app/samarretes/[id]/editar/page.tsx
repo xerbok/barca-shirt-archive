@@ -1,6 +1,7 @@
 import { connection } from "next/server";
 import Link from "next/link";
 import { EditShirtForm } from "@/components/edit-shirt-form";
+import { EditShirtImagesManager } from "@/components/edit-shirt-images-manager";
 import { getShirtById } from "@/lib/shirts";
 
 type EditShirtPageProps = {
@@ -32,7 +33,7 @@ export default async function EditShirtPage({ params }: EditShirtPageProps) {
 
   return (
     <main className="min-h-screen bg-slate-100">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-5 py-6 sm:px-8 lg:py-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-6 sm:px-8 lg:py-8">
         <header className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <Link
             className="text-sm font-semibold text-blue-800 transition hover:text-blue-950"
@@ -47,12 +48,15 @@ export default async function EditShirtPage({ params }: EditShirtPageProps) {
             Editar samarreta
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
-            Actualitza les dades principals de la peça. Les imatges i
-            l&apos;eliminació real es gestionaran més endavant.
+            Actualitza les dades principals de la peça i gestiona les imatges
+            associades a aquesta samarreta.
           </p>
         </header>
 
-        <EditShirtForm shirt={shirt} />
+        <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] xl:items-start">
+          <EditShirtForm shirt={shirt} />
+          <EditShirtImagesManager images={shirt.images} shirtId={shirt.id} />
+        </div>
       </div>
     </main>
   );

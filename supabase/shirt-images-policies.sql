@@ -7,6 +7,9 @@ where id = 'shirt-images';
 
 alter table public.shirt_images enable row level security;
 
+grant select, insert, update, delete on table public.shirt_images
+to anon, authenticated;
+
 drop policy if exists "Permet llegir imatges de samarretes" on public.shirt_images;
 create policy "Permet llegir imatges de samarretes"
 on public.shirt_images
@@ -20,6 +23,21 @@ on public.shirt_images
 for insert
 to anon, authenticated
 with check (true);
+
+drop policy if exists "Permet actualitzar imatges de samarretes" on public.shirt_images;
+create policy "Permet actualitzar imatges de samarretes"
+on public.shirt_images
+for update
+to anon, authenticated
+using (true)
+with check (true);
+
+drop policy if exists "Permet eliminar imatges de samarretes" on public.shirt_images;
+create policy "Permet eliminar imatges de samarretes"
+on public.shirt_images
+for delete
+to anon, authenticated
+using (true);
 
 drop policy if exists "Permet llegir fitxers de samarretes" on storage.objects;
 create policy "Permet llegir fitxers de samarretes"

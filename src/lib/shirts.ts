@@ -156,11 +156,15 @@ export async function deleteShirt(id: string): Promise<void> {
 export async function uploadShirtImages(
   shirtId: string,
   files: File[],
+  options: {
+    firstImageIsMain?: boolean;
+  } = {},
 ): Promise<void> {
   if (files.length === 0) {
     return;
   }
 
+  const firstImageIsMain = options.firstImageIsMain ?? true;
   const uploadedPaths: string[] = [];
 
   try {
@@ -194,7 +198,7 @@ export async function uploadShirtImages(
         image_url: data.publicUrl,
         image_path: imagePath,
         image_type: file.type,
-        is_main: index === 0,
+        is_main: firstImageIsMain && index === 0,
       });
     }
 
@@ -206,6 +210,119 @@ export async function uploadShirtImages(
 
     throw error;
   }
+}
+
+export async function deleteShirtImage(
+  shirtId: string,
+  imageId: string,
+): Promise<void> {
+  const images = await getShirtImages(shirtId);
+  const imageToDelete = images.find((image) => image.id === imageId);
+
+  if (!imageToDelete) {
+    throw new Error("No s'ha trobat aquesta imatge de la samarreta.");
+  }
+
+  if (imageToDelete.image_path) {
+    const { error: storageError } = await supabase.storage
+      .from(SHIRT_IMAGES_BUCKET)
+      .remove([imageToDelete.image_path]);
+
+    if (storageError) {
+      throw new Error("No s'ha pogut eliminar el fitxer de Supabase Storage.");
+    }
+  }
+
+  const { data: deletedImages, error } = await supabase
+    .from("shirt_images")
+    .delete()
+    .eq("id", imageId)
+    .eq("shirt_id", shirtId)
+    .select("id")
+    .returns<Array<Pick<ShirtImage, "id">>>();
+
+  if (error) {
+    throw new Error(getShirtImagesDeleteErrorMessage(error.message));
+  }
+
+  if ((deletedImages ?? []).length !== 1) {
+    throw new Error(
+      "Supabase no ha eliminat cap fila de shirt_images. Reexecuta supabase/shirt-images-policies.sql i torna-ho a provar.",
+    );
+  }
+
+  if (imageToDelete.is_main) {
+    const remainingImages = images.filter((image) => image.id !== imageId);
+    const nextMainImage = remainingImages[0];
+
+    if (nextMainImage) {
+      await setMainShirtImage(shirtId, nextMainImage.id);
+    }
+  }
+}
+
+export async function setMainShirtImage(
+  shirtId: string,
+  imageId: string,
+): Promise<void> {
+  const images = await getShirtImages(shirtId);
+
+  if (!images.some((image) => image.id === imageId)) {
+    throw new Error("No s'ha trobat aquesta imatge de la samarreta.");
+  }
+
+  const { data: resetImages, error: resetError } = await supabase
+    .from("shirt_images")
+    .update({ is_main: false })
+    .eq("shirt_id", shirtId)
+    .select("id")
+    .returns<Array<Pick<ShirtImage, "id">>>();
+
+  if (resetError) {
+    throw new Error(getShirtImagesUpdateErrorMessage(resetError.message));
+  }
+
+  if ((resetImages ?? []).length === 0) {
+    throw new Error(
+      "Supabase no ha actualitzat cap fila de shirt_images. Reexecuta supabase/shirt-images-policies.sql i torna-ho a provar.",
+    );
+  }
+
+  const { data: mainImages, error: setError } = await supabase
+    .from("shirt_images")
+    .update({ is_main: true })
+    .eq("id", imageId)
+    .eq("shirt_id", shirtId)
+    .select("id")
+    .returns<Array<Pick<ShirtImage, "id">>>();
+
+  if (setError) {
+    throw new Error(getShirtImagesUpdateErrorMessage(setError.message));
+  }
+
+  if ((mainImages ?? []).length !== 1) {
+    throw new Error(
+      "Supabase no ha marcat cap imatge com a principal. Reexecuta supabase/shirt-images-policies.sql i torna-ho a provar.",
+    );
+  }
+}
+
+async function getShirtImages(shirtId: string): Promise<ShirtImage[]> {
+  const { data, error } = await supabase
+    .from("shirt_images")
+    .select(shirtImageSelect)
+    .eq("shirt_id", shirtId)
+    .order("is_main", { ascending: false })
+    .order("created_at", { ascending: true })
+    .returns<ShirtImage[]>();
+
+  if (error) {
+    throw new Error(
+      "No s'han pogut obtenir les imatges de la samarreta de Supabase.",
+    );
+  }
+
+  return data ?? [];
 }
 
 async function createShirtImages(
@@ -240,6 +357,22 @@ function getShirtImagesInsertErrorMessage(message: string): string {
   }
 
   return "No s'han pogut desar les imatges de la samarreta.";
+}
+
+function getShirtImagesUpdateErrorMessage(message: string): string {
+  if (message.includes("row-level security")) {
+    return "Supabase bloqueja l'actualització de les imatges a la taula shirt_images. Reexecuta supabase/shirt-images-policies.sql i torna-ho a provar.";
+  }
+
+  return "No s'ha pogut actualitzar la imatge de la samarreta.";
+}
+
+function getShirtImagesDeleteErrorMessage(message: string): string {
+  if (message.includes("row-level security")) {
+    return "Supabase bloqueja l'eliminació de les imatges a la taula shirt_images. Reexecuta supabase/shirt-images-policies.sql i torna-ho a provar.";
+  }
+
+  return "No s'ha pogut eliminar la imatge de la samarreta.";
 }
 
 function buildShirtImagePath(
